@@ -91,3 +91,9 @@ case "${uname_output}" in
     MINGW*)     system=MinGw;;
     *)          system="UNKNOWN:${uname_output}"
 esac
+
+if [[ $system != "Linux" ]] && [[ $system != "MacOS" ]]; then
+  echo "Sorry, $system isn't supported :/ )"
+  echo "Exit..."
+  exit
+fi
