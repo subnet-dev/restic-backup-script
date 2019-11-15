@@ -42,3 +42,10 @@ function check_file_or_dir_exist() {
 if [[ $(check_file_or_dir_exist $SCRIPT_DIR_PATH/restic_var) == 1 ]]; then
   . $SCRIPT_DIR_PATH/restic_var
 fi
+
+# Check if github.com is accessible and if auto update is enable
+if [[ $SCRIPT_AUTO_UPDATE == "true" ]] && [[ $(check_connection github.com) == "1" ]]; then
+  git pull
+else
+  echo "Auto update disable or no access to github.com"
+fi
