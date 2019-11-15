@@ -1,6 +1,5 @@
 #### Script Constant ####
-SCRIPT_FILE_PATH=$0
-SCRIPT_DIR_PATH=$(dirname $SCRIPT_FILE_PATH)
+SCRIPT_DIR_PATH=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 #### Functions ####
 # Function to check if some ip is accessible
@@ -58,7 +57,7 @@ fi
 # Check if github.com is accessible and if auto update is enable
 if [[ $SCRIPT_AUTO_UPDATE == "true" ]] && [[ $(check_connection github.com) == "1" ]]; then
   echo "Script update"
-  git pull
+  git -C $SCRIPT_DIR_PATH pull
   echo ""
 else
   echo "Auto update disable or no access to github.com"
