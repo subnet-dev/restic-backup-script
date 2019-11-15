@@ -36,3 +36,9 @@ function check_file_or_dir_exist() {
 }
 
 
+#### Code start ####
+
+# Include restic authentification file if exist
+if [[ $(check_file_or_dir_exist $SCRIPT_DIR_PATH/restic_var) == 1 ]]; then
+  . $SCRIPT_DIR_PATH/restic_var
+fi
