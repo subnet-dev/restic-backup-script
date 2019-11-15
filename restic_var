@@ -2,65 +2,65 @@
 
 ## Restic
 # Restic repo settings
-RESTIC_REPOSITORY="s3:http(s)://s3.example.com:1234/bucket-name"      #Location of repository (replaces -r)
-RESTIC_PASSWORD="MyResticPa$$w0Rd"                                    #Location of password file (replaces --password-file)
-RESTIC_BACKUP_PATH="/Applications /Users /Library"                    #Location to backup example "/data /home /etc"
-RESTIC_EXCLUDE_PATH="/Volumes"                                        #Location to exclude of the backup example : "/dev/"
-RESTIC_CUSTOM_TAGS=""                                                 #Custom tag to add example "--tag tag1 --tag tag2 --tag tag3"
+export RESTIC_REPOSITORY="s3:http(s)://s3.example.com:1234/bucket-name"      #Location of repository (replaces -r)
+export RESTIC_PASSWORD="MyResticPa$$w0Rd"                                    #Location of password file (replaces --password-file)
+export RESTIC_BACKUP_PATH="/Applications /Users /Library"                    #Location to backup example "/data /home /etc"
+export RESTIC_EXCLUDE_PATH="/Volumes"                                        #Location to exclude of the backup example : "/dev/"
+export RESTIC_CUSTOM_TAGS=""                                                 #Custom tag to add example "--tag tag1 --tag tag2 --tag tag3"
 
 # Restic s3 settings
-AWS_ACCESS_KEY_ID="S3 Access key"                                     #Amazon S3 access key ID
-AWS_SECRET_ACCESS_KEY="S3 Secret Key"                                 #Amazon S3 secret access key
+export AWS_ACCESS_KEY_ID="S3 Access key"                                     #Amazon S3 access key ID
+export AWS_SECRET_ACCESS_KEY="S3 Secret Key"                                 #Amazon S3 secret access key
 
 # Log settings
-LOG_OUTPUT_PATH="$SCRIPT_DIR_PATH/restic-backup-script.log"           #Log path default ("$SCRIPT_DIR_PATH/restic-backup-script.log")
-LOG_LEVEL="1"                                                         #Log level (1 (Normal), 2 (Error) or 3 (Error + info))
+export LOG_OUTPUT_PATH="$SCRIPT_DIR_PATH/restic-backup-script.log"           #Log path default ("$SCRIPT_DIR_PATH/restic-backup-script.log")
+export LOG_LEVEL="1"                                                         #Log level (1 (Normal), 2 (Error) or 3 (Error + info))
 
 ## Other
 
 # Limit restic process CPU in %
-MAX_CPU_USAGE=20
+export MAX_CPU_USAGE=20
 
 # Fix PATH
-PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 
 # Script automation
-SCRIPT_AUTO_UPDATE="true"                                             #Update restic script at each run
+export SCRIPT_AUTO_UPDATE="true"                                             #Update restic script at each run
 
 
 ### /!\ Variables not compatible at the moment /!\
 
-RESTIC_PASSWORD_FILE=""                                               #Location of password file (replaces --password-file)
+RESTIC_PASSWORD_FILE=""                                                      #Location of password file (replaces --password-file)
 
-ST_AUTH=""                                                            #Auth URL for keystone v1 authentication
-ST_USER=""                                                            #Username for keystone v1 authentication
-ST_KEY=""                                                             #Password for keystone v1 authentication
+ST_AUTH=""                                                                   #Auth URL for keystone v1 authentication
+ST_USER=""                                                                   #Username for keystone v1 authentication
+ST_KEY=""                                                                    #Password for keystone v1 authentication
 
-OS_AUTH_URL=""                                                        #Auth URL for keystone authentication
-OS_REGION_NAME=""                                                     #Region name for keystone authentication
-OS_USERNAME=""                                                        #Username for keystone authentication
-OS_PASSWORD=""                                                        #Password for keystone authentication
-OS_TENANT_ID=""                                                       #Tenant ID for keystone v2 authentication
-OS_TENANT_NAME=""                                                     #Tenant name for keystone v2 authentication
+OS_AUTH_URL=""                                                               #Auth URL for keystone authentication
+OS_REGION_NAME=""                                                            #Region name for keystone authentication
+OS_USERNAME=""                                                               #Username for keystone authentication
+OS_PASSWORD=""                                                               #Password for keystone authentication
+OS_TENANT_ID=""                                                              #Tenant ID for keystone v2 authentication
+OS_TENANT_NAME=""                                                            #Tenant name for keystone v2 authentication
 
-OS_USER_DOMAIN_NAME=""                                                #User domain name for keystone authentication
-OS_PROJECT_NAME=""                                                    #Project name for keystone authentication
-OS_PROJECT_DOMAIN_NAME=""                                             #Project domain name for keystone authentication
+OS_USER_DOMAIN_NAME=""                                                       #User domain name for keystone authentication
+OS_PROJECT_NAME=""                                                           #Project name for keystone authentication
+OS_PROJECT_DOMAIN_NAME=""                                                    #Project domain name for keystone authentication
 
-OS_APPLICATION_CREDENTIAL_ID=""                                       #Application Credential ID (keystone v3)
-OS_APPLICATION_CREDENTIAL_NAME=""                                     #Application Credential Name (keystone v3)
-OS_APPLICATION_CREDENTIAL_SECRET=""                                   #Application Credential Secret (keystone v3)
+OS_APPLICATION_CREDENTIAL_ID=""                                              #Application Credential ID (keystone v3)
+OS_APPLICATION_CREDENTIAL_NAME=""                                            #Application Credential Name (keystone v3)
+OS_APPLICATION_CREDENTIAL_SECRET=""                                          #Application Credential Secret (keystone v3)
 
-OS_STORAGE_URL=""                                                     #Storage URL for token authentication
-OS_AUTH_TOKEN=""                                                      #Auth token for token authentication
+OS_STORAGE_URL=""                                                            #Storage URL for token authentication
+OS_AUTH_TOKEN=""                                                             #Auth token for token authentication
 
-B2_ACCOUNT_ID=""                                                      #Account ID or applicationKeyId for Backblaze B2
-B2_ACCOUNT_KEY=""                                                     #Account Key or applicationKey for Backblaze B2
+B2_ACCOUNT_ID=""                                                             #Account ID or applicationKeyId for Backblaze B2
+B2_ACCOUNT_KEY=""                                                            #Account Key or applicationKey for Backblaze B2
 
-AZURE_ACCOUNT_NAME=""                                                 #Account name for Azure
-AZURE_ACCOUNT_KEY=""                                                  #Account key for Azure
+AZURE_ACCOUNT_NAME=""                                                        #Account name for Azure
+AZURE_ACCOUNT_KEY=""                                                         #Account key for Azure
 
-GOOGLE_PROJECT_ID=""                                                  #Project ID for Google Cloud Storage
-GOOGLE_APPLICATION_CREDENTIALS=""                                     #Application Credentials for Google Cloud Storage (e.g. $HOME/.config/gs-secret-restic-key.json)
+GOOGLE_PROJECT_ID=""                                                         #Project ID for Google Cloud Storage
+GOOGLE_APPLICATION_CREDENTIALS=""                                            #Application Credentials for Google Cloud Storage (e.g. $HOME/.config/gs-secret-restic-key.json)
 
-RCLONE_BWLIMIT=""                                                     #rclone bandwidth limit
+RCLONE_BWLIMIT=""                                                            #rclone bandwidth limit
