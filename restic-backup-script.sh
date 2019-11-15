@@ -35,6 +35,20 @@ function check_file_or_dir_exist() {
   fi
 }
 
+# Function to check if command is installed
+function check_if_installed() {
+  if [[ ! -z $1 ]]; then
+
+    if [[ $(command -v $1) ]]; then
+      echo 1
+    else
+      echo 0
+    fi
+
+  else
+    echo 0
+  fi
+}
 
 #### Code start ####
 
