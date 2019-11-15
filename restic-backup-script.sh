@@ -1,5 +1,3 @@
-# Include restic authentification var
-. restic_var
 #### Script Constant ####
 SCRIPT_FILE_PATH=$0
 SCRIPT_DIR_PATH=$(dirname $SCRIPT_FILE_PATH)
@@ -75,5 +73,12 @@ if [[ ! $(check_connection $RESTIC_REPOSITORY_HOST) == "1" ]]; then
   echo "Your restic repository on $RESTIC_REPOSITORY_HOST isn't accessible"
   echo "Please verify your restic_var configuration ($SCRIPT_DIR_PATH/restic_var)"
   echo "Exit"
+  exit
+fi
+
+# Check if restic is installed
+if [[ ! $(check_if_installed restic) == "1" ]]; then
+  echo "Restic isn't installed or isn't in the \$PATH"
+  echo "Installation documentation : https://restic.readthedocs.io/en/stable/020_installation.html"
   exit
 fi
