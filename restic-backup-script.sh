@@ -7,7 +7,7 @@ SCRIPT_DIR_PATH=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 # Function to check if some ip is accessible
 function check_connection() {
   if [[ ! -z $1 ]]; then
-    ping -t 2 -c 1 $1 &> /dev/null
+    ping -t 10 -c 1 $1 &> /dev/null
     ping_result=$?
     if [[ $ping_result == "0" ]]; then
       echo 1
