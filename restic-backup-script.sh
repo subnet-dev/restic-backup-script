@@ -116,3 +116,31 @@ if [[ $system != "Linux" ]] && [[ $system != "MacOS" ]]; then
   echo "Exit..."
   exit
 fi
+
+# Set the max cpu usage
+set_max_cpu_usage
+
+### Get computer informations ###
+case $system in
+  MacOS )
+    # Computer Informations
+    Computer_Owner=$(dscl . list /Users | grep -v '_' | grep -vi "root\|nobody\|daemon\|guest" | tr '\n' ' ')
+    Computer_Name=$(scutil --get ComputerName)
+    Computer_Modele=$(system_profiler SPHardwareDataType | awk '/Model Identifier/ {print $3}' | sed 's/,/./')
+    Computer_OSVersion=$(defaults read loginwindow SystemVersionStampAsString)
+    Computer_Serial=$(system_profiler SPHardwareDataType | awk '/Serial/ {print $4}' | cut -d " " -f1 | head -1)
+    ;;
+  Linux )
+    Computer_Owner=$( cat /etc/passwd | grep -vi "nologin" | grep -vi "sbin" | grep -vi "root\|nobody\|daemon\|guest" | cut -d : -f 1 | tr '\n' ' ')
+    Computer_Name=$(hostname)
+    Computer_Modele=$(dmidecode | grep -A3 '^System Information' | grep "Product Name" | cut -d : -f 2 | sed 's/ //' | tr -s ' ' | tr ' ' '_' | tr -s ',' | tr ',' '.')
+    Computer_OSVersion=$(cat /etc/os-release | grep PRETTY_NAME | cut -d = -f 2 | cut -d \" -f 2 | tr -s ' ' | tr ' ' '_')
+    Computer_Serial=$(dmidecode -s system-serial-number)
+  ;;
+esac
+
+echo $Computer_Owner
+echo $Computer_Name
+echo $Computer_Modele
+echo $Computer_OSVersion
+echo $Computer_Serial
