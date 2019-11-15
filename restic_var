@@ -4,6 +4,8 @@
 # Restic repo settings
 RESTIC_REPOSITORY="s3:http(s)://s3.example.com:1234/bucket-name"      #Location of repository (replaces -r)
 RESTIC_PASSWORD="MyResticPa$$w0Rd"                                    #Location of password file (replaces --password-file)
+RESTIC_BACKUP_PATH="/Applications /Users /Library"                                                #Location to backup example "/data /home /etc"
+RESTIC_EXCLUDE_PATH="/Volumes"                                           #Location to exclude of the backup example : "/dev/"
 
 # Restic s3 settings
 AWS_ACCESS_KEY_ID="S3 Access key"                                     #Amazon S3 access key ID
@@ -13,7 +15,15 @@ AWS_SECRET_ACCESS_KEY="S3 Secret Key"                                 #Amazon S3
 LOG_OUTPUT_PATH="$SCRIPT_DIR_PATH/restic-backup-script.log"           #Log path default ("$SCRIPT_DIR_PATH/restic-backup-script.log")
 LOG_LEVEL="1"                                                         #Log level (1 (Normal), 2 (Error) or 3 (Error + info))
 
-## Script automation
+## Other
+
+# Limit restic process CPU in %
+MAX_CPU_USAGE=20
+
+# Fix PATH
+PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+# Script automation
 SCRIPT_AUTO_UPDATE="true"                                             #Update restic script at each run
 
 
