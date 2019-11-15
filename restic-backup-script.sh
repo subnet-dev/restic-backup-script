@@ -49,3 +49,15 @@ if [[ $SCRIPT_AUTO_UPDATE == "true" ]] && [[ $(check_connection github.com) == "
 else
   echo "Auto update disable or no access to github.com"
 fi
+
+# Check if the repo path is resolvable.
+RESTIC_REPOSITORY_TYPE=$(echo $RESTIC_REPOSITORY | cut -d : -f 1)
+RESTIC_REPOSITORY_PROTOCOL=$(echo $RESTIC_REPOSITORY | cut -d : -f 2)
+RESTIC_REPOSITORY_HOST=$(echo $RESTIC_REPOSITORY | cut -d : -f 3 | sed -e 's/\/.*\///g')
+
+if [[ ! $(check_connection $RESTIC_REPOSITORY_HOST) == "1" ]]; then
+  echo "Your restic repository on $RESTIC_REPOSITORY_HOST isn't accessible"
+  echo "Please verify your restic_var configuration ($SCRIPT_DIR_PATH/restic_var)"
+  echo "Exit"
+  exit
+fi
