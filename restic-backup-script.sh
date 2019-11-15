@@ -59,7 +59,9 @@ fi
 
 # Check if github.com is accessible and if auto update is enable
 if [[ $SCRIPT_AUTO_UPDATE == "true" ]] && [[ $(check_connection github.com) == "1" ]]; then
+  echo "Script update"
   git pull
+  echo ""
 else
   echo "Auto update disable or no access to github.com"
 fi
