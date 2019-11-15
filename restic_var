@@ -4,8 +4,9 @@
 # Restic repo settings
 RESTIC_REPOSITORY="s3:http(s)://s3.example.com:1234/bucket-name"      #Location of repository (replaces -r)
 RESTIC_PASSWORD="MyResticPa$$w0Rd"                                    #Location of password file (replaces --password-file)
-RESTIC_BACKUP_PATH="/Applications /Users /Library"                                                #Location to backup example "/data /home /etc"
-RESTIC_EXCLUDE_PATH="/Volumes"                                           #Location to exclude of the backup example : "/dev/"
+RESTIC_BACKUP_PATH="/Applications /Users /Library"                    #Location to backup example "/data /home /etc"
+RESTIC_EXCLUDE_PATH="/Volumes"                                        #Location to exclude of the backup example : "/dev/"
+RESTIC_CUSTOM_TAGS=""                                                 #Custom tag to add example "--tag tag1 --tag tag2 --tag tag3"
 
 # Restic s3 settings
 AWS_ACCESS_KEY_ID="S3 Access key"                                     #Amazon S3 access key ID
