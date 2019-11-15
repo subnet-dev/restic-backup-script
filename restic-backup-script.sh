@@ -49,6 +49,11 @@ function check_if_installed() {
   fi
 }
 
+
+function set_max_cpu_usage() {
+  export GOMAXPROCS=$(($(getconf _NPROCESSORS_ONLN) * $MAX_CPU_USAGE / 100))
+}
+
 #### Code start ####
 
 # Include restic authentification file if exist
