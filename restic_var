@@ -7,6 +7,11 @@ RESTIC_PASSWORD="Restic Password"      #The actual password for the repository
 AWS_ACCESS_KEY_ID="S3 Access key"      #Amazon S3 access key ID
 AWS_SECRET_ACCESS_KEY="S3 Secret Key"  #Amazon S3 secret access key
 
+
+
+
+/!\ Variables not compatible at the moment /!\
+
 ST_AUTH=""                             #Auth URL for keystone v1 authentication
 ST_USER=""                             #Username for keystone v1 authentication
 ST_KEY=""                              #Password for keystone v1 authentication
