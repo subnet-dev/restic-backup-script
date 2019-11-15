@@ -20,3 +20,19 @@ function check_connection() {
   fi
 }
 
+# Function to check if a file or a directory exist
+function check_file_or_dir_exist() {
+  if [[ ! -z $1 ]]; then
+
+    if [[ -d $1 ]] || [[ -f $1 ]]; then
+      echo 1
+    else
+      echo 0
+    fi
+
+  else
+    echo 0
+  fi
+}
+
+
