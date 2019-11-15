@@ -69,7 +69,7 @@ fi
 if [[ $SCRIPT_AUTO_UPDATE == "true" ]] && [[ $(check_connection github.com) == "1" ]]; then
   echo "Script update"
 
-  if ! git -C $SCRIPT_DIR_PATH pull; then
+  if ! cd $SCRIPT_DIR_PATH && git pull; then
     echo "Error on pull..."
     echo "If you have some trouble with this script you can reinitialize with these commands in terminal :"
     echo " /!\\ This manipulation replace the restic_var file /!\\ "
