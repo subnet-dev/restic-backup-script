@@ -51,7 +51,7 @@ function check_if_installed() {
 
 
 function set_max_cpu_usage() {
-  export GOMAXPROCS=$(($(getconf _NPROCESSORS_ONLN) * $MAX_CPU_USAGE / 100))
+  export GOMAXPROCS=$(($(getconf _NPROCESSORS_ONLN)*$MAX_CPU_USAGE/100))
 }
 
 #### Code start ####
