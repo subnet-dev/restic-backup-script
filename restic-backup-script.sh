@@ -81,3 +81,13 @@ if [[ ! $(check_if_installed restic) == "1" ]]; then
   echo "Installation documentation : https://restic.readthedocs.io/en/stable/020_installation.html"
   exit
 fi
+
+# Detect witch system it is
+uname_output="$(uname -s)"
+case "${uname_output}" in
+    Linux*)     system=Linux;;
+    Darwin*)    system=MacOS;;
+    CYGWIN*)    system=Cygwin;;
+    MINGW*)     system=MinGw;;
+    *)          system="UNKNOWN:${uname_output}"
+esac
