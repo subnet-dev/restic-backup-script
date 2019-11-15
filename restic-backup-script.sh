@@ -52,6 +52,18 @@ function check_if_installed() {
 # Include restic authentification file if exist
 if [[ $(check_file_or_dir_exist $SCRIPT_DIR_PATH/restic_var) == 1 ]]; then
   . $SCRIPT_DIR_PATH/restic_var
+else
+  curl https://raw.githubusercontent.com/subnet-dev/restic-backup-script/master/restic_var > $SCRIPT_DIR_PATH/restic_var 2> /dev/null
+  git -C $SCRIPT_DIR_PATH pull
+  echo "You must configure this file : $SCRIPT_DIR_PATH/restic_var"
+  echo "If you have some trouble with this script you can reinitialize with these commands in terminal :"
+  echo " /!\\ This manipulation replace the restic_var file /!\\ "
+  echo "      cd $SCRIPT_DIR_PATH"
+  echo "      git fetch --all"
+  echo "      git reset --hard origin/master"
+  echo ""
+  echo "The retry to run the script : $SCRIPT_DIR_PATH/restic-backup-script.sh"
+  exit
 fi
 
 # Check if github.com is accessible and if auto update is enable
