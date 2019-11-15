@@ -11,6 +11,7 @@ AWS_SECRET_ACCESS_KEY="S3 Secret Key"                                 #Amazon S3
 
 # Log settings
 LOG_OUTPUT_PATH="$SCRIPT_DIR_PATH/restic-backup-script.log"           #Log path default ("$SCRIPT_DIR_PATH/restic-backup-script.log")
+LOG_LEVEL="1"                                                         #Log level (1 (Normal), 2 (Error) or 3 (Error + info))
 
 ## Script automation
 SCRIPT_AUTO_UPDATE="true"                                             #Update restic script at each run
