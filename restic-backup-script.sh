@@ -34,19 +34,15 @@ function check_file_or_dir_exist() {
   fi
 }
 
-# Function to check if command is installed
-function check_if_installed() {
-  if [[ ! -z $1 ]]; then
-
-    if [[ $(command -v $1) ]]; then
-      echo 1
-    else
-      echo 0
+function check_program_in_path () {
+    # Check if the command exists.
+    command -v $1 > /dev/null
+    # Fail if the command does not exist and the argument is not a path to an executable.
+    if [ $? -ne 0 ] && [ ! -f $1 ] ; then
+        echo "$1 is required but not found in \$PATH"
+        echo "More informations on https://github.com/subnet-dev/restic-backup-script"
+        exit 1
     fi
-
-  else
-    echo 0
-  fi
 }
 
 
@@ -99,12 +95,7 @@ if [[ ! $(check_connection $RESTIC_REPOSITORY_HOST) == "1" ]]; then
   exit
 fi
 
-# Check if restic is installed
-if [[ ! $(check_if_installed restic) == "1" ]]; then
-  echo "Restic isn't installed or isn't in the \$PATH"
-  echo "Installation documentation : https://restic.readthedocs.io/en/stable/020_installation.html"
-  exit
-fi
+check_program_in_path restic
 
 # Detect witch system it is
 uname_output="$(uname -s)"
