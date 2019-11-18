@@ -141,6 +141,11 @@ case $1 in
     restic backup $RESTIC_BACKUP_PATH --host $Computer_Name --tag $Computer_Owner --tag $Computer_Modele --tag $Computer_OSVersion --tag $Computer_Serial $RESTIC_EXCLUDE_PATH
     echo "$(date) --- Backup end ------"
     ;;
+  fake-backup )
+    echo "$(date) --- Start backup ----"
+    echo "restic backup $RESTIC_BACKUP_PATH --host $Computer_Name --tag $Computer_Owner --tag $Computer_Modele --tag $Computer_OSVersion --tag $Computer_Serial $RESTIC_EXCLUDE_PATH"
+    echo "$(date) --- Backup end ------"
+    ;;
   * )
     echo "OK"
     ;;
