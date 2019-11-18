@@ -135,6 +135,13 @@ case $system in
   ;;
 esac
 
-echo "$(date) --- Start backup ----"
-echo "$(date) restic backup $RESTIC_BACKUP_PATH --host $Computer_Name --tag $Computer_Owner --tag $Computer_Modele --tag $Computer_OSVersion --tag $Computer_Serial $RESTIC_EXCLUDE_PATH"
-echo "$(date) --- Backup end ------"
+case $1 in
+  backup )
+    echo "$(date) --- Start backup ----"
+    restic backup $RESTIC_BACKUP_PATH --host $Computer_Name --tag $Computer_Owner --tag $Computer_Modele --tag $Computer_OSVersion --tag $Computer_Serial $RESTIC_EXCLUDE_PATH
+    echo "$(date) --- Backup end ------"
+    ;;
+  * )
+    echo "OK"
+    ;;
+esac
