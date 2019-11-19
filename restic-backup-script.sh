@@ -164,9 +164,9 @@ case $1 in
     ;;
 
   snapshots-all )
-    echo "$(date) --- Show Snapshots ----"
-    restic snapshots --host $Computer_Name
-    echo "$(date) --- Stop Show Snapshots ----"
+    echo "$(date) --- Show All Snapshots ----"
+    restic snapshots
+    echo "$(date) --- Stop Show All Snapshots ----"
     ;;
 
   help | * )
