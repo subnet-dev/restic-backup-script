@@ -141,11 +141,25 @@ case $1 in
     restic backup $RESTIC_BACKUP_PATH --host $Computer_Name --tag $Computer_Owner --tag $Computer_Modele --tag $Computer_OSVersion --tag $Computer_Serial $RESTIC_EXCLUDE_PATH
     echo "$(date) --- Backup end ------"
     ;;
+
   fake-backup )
     echo "$(date) --- Start backup ----"
     echo "restic backup $RESTIC_BACKUP_PATH --host $Computer_Name --tag $Computer_Owner --tag $Computer_Modele --tag $Computer_OSVersion --tag $Computer_Serial $RESTIC_EXCLUDE_PATH"
     echo "$(date) --- Backup end ------"
     ;;
+
+  snapshots )
+    echo "$(date) --- Show Snapshots ----"
+    restic snapshots --host $Computer_Name
+    echo "$(date) --- Stop Show Snapshots ----"
+    ;;
+
+  snapshots-all )
+    echo "$(date) --- Show Snapshots ----"
+    restic snapshots --host $Computer_Name
+    echo "$(date) --- Stop Show Snapshots ----"
+    ;;
+
   help | * )
 
     echo ""
@@ -159,6 +173,8 @@ case $1 in
     echo "--- backup          Run restic backup                      ---"
     echo "--- fake-backup     Echo the restic backup command         ---"
     echo "--- help            Print this page                        ---"
+    echo "--- snapshots       Show snapshots of this computer        ---"
+    echo "--- snapshots-all   Show snapshots of all computers        ---"
     echo "---                                                        ---"
     echo "--------------------------------------------------------------"
     echo "----------------- ©Matéo Muller - subnet.dev -----------------"
