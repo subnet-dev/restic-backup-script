@@ -152,9 +152,15 @@ case $1 in
     ;;
 
   snapshots )
-    echo "$(date) --- Show Snapshots ----"
+
+    #Check if a hostname is specified
+    if [[ $2 != "" ]]; then
+      Computer_Name=$2
+    fi
+    echo "$(date) --- Show Snapshots of $Computer_Name ----"
     restic snapshots --host $Computer_Name
     echo "$(date) --- Stop Show Snapshots ----"
+
     ;;
 
   snapshots-all )
@@ -167,23 +173,23 @@ case $1 in
 
     echo ""
     echo ""
-    echo "--------------------------------------------------------------"
-    echo "-------------------- Restic Backup Script --------------------"
-    echo "--------------------------------------------------------------"
-    echo "--------------------------- Manual ---------------------------"
-    echo "--------------------------------------------------------------"
-    echo "---                                                        ---"
-    echo "--- backup          Run restic backup                      ---"
-    echo "--- fake-backup     Echo the restic backup command         ---"
-    echo "--- snapshots       Show snapshots of this computer        ---"
-    echo "--- snapshots-all   Show snapshots of all computers        ---"
-    echo "--- help            Print this page                        ---"
-    echo "---                                                        ---"
-    echo "--------------------------------------------------------------"
-    echo "----------------- ©Matéo Muller - subnet.dev -----------------"
-    echo "--------------------------------------------------------------"
-    echo "----- https://github.com/subnet-dev/restic-backup-script -----"
-    echo "--------------------------------------------------------------"
+    echo "------------------------------------------------------------------------"
+    echo "------------------------- Restic Backup Script -------------------------"
+    echo "------------------------------------------------------------------------"
+    echo "-------------------------------- Manual --------------------------------"
+    echo "------------------------------------------------------------------------"
+    echo "---                                                                  ---"
+    echo "--- backup                    Run restic backup                      ---"
+    echo "--- fake-backup               Echo the restic backup command         ---"
+    echo "--- snapshots [Hostname]      Show snapshots of this computer        ---"
+    echo "--- snapshots-all             Show snapshots of all computers        ---"
+    echo "--- help                      Print this page                        ---"
+    echo "---                                                                  ---"
+    echo "------------------------------------------------------------------------"
+    echo "---------------------- ©Matéo Muller - subnet.dev ----------------------"
+    echo "------------------------------------------------------------------------"
+    echo "---------- https://github.com/subnet-dev/restic-backup-script ----------"
+    echo "------------------------------------------------------------------------"
     echo ""
     echo ""
     ;;
