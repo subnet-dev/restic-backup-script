@@ -146,7 +146,23 @@ case $1 in
     echo "restic backup $RESTIC_BACKUP_PATH --host $Computer_Name --tag $Computer_Owner --tag $Computer_Modele --tag $Computer_OSVersion --tag $Computer_Serial $RESTIC_EXCLUDE_PATH"
     echo "$(date) --- Backup end ------"
     ;;
-  * )
-    echo "OK"
+  help | * )
+    #echo "-------------------------------"
+    echo "--------------------------------------------------------------"
+    echo "-------------------- Restic Backup Script --------------------"
+    echo "--------------------------------------------------------------"
+    echo "--------------------------- Manual ---------------------------"
+    echo "--------------------------------------------------------------"
+    echo "---                                                        ---"
+    echo "--- backup          Run restic backup                      ---"
+    echo "--- fake-backup     Echo the restic backup command         ---"
+    echo "--- help            Print this page                        ---"
+    echo "---                                                        ---"
+    echo "--------------------------------------------------------------"
+    echo "----------------- ©Matéo Muller - subnet.dev -----------------"
+    echo "--------------------------------------------------------------"
+    echo "----- https://github.com/subnet-dev/restic-backup-script -----"
+    echo "--------------------------------------------------------------"
+
     ;;
 esac
