@@ -205,6 +205,7 @@ case $1 in
     echo "--- fake-backup               Echo the restic backup command         ---"
     echo "--- snapshots [Hostname]      Show snapshots of this computer        ---"
     echo "--- snapshots-all             Show snapshots of all computers        ---"
+    echo "--- mount                     Mount restic backup on ~/Restic        ---"
     echo "--- help                      Print this page                        ---"
     echo "---                                                                  ---"
     echo "------------------------------------------------------------------------"
