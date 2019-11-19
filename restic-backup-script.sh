@@ -63,7 +63,7 @@ fi
 
 # Check if github.com is accessible and if auto update is enable
 if [[ $SCRIPT_AUTO_UPDATE == "true" ]] && [[ $(check_connection github.com) == "1" ]]; then
-  echo "Script update"
+  echo "$(date) Script update"
 
   if [[ ! $(cd $SCRIPT_DIR_PATH && git pull) ]]; then
     echo "Error on pull..."
@@ -147,7 +147,9 @@ case $1 in
     echo "$(date) --- Backup end ------"
     ;;
   help | * )
-    #echo "-------------------------------"
+
+    echo ""
+    echo ""
     echo "--------------------------------------------------------------"
     echo "-------------------- Restic Backup Script --------------------"
     echo "--------------------------------------------------------------"
@@ -163,6 +165,7 @@ case $1 in
     echo "--------------------------------------------------------------"
     echo "----- https://github.com/subnet-dev/restic-backup-script -----"
     echo "--------------------------------------------------------------"
-
+    echo ""
+    echo ""
     ;;
 esac
