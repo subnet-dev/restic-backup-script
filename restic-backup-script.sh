@@ -122,29 +122,29 @@ case $system in
     # Computer Informations
     Computer_Owner=$(dscl . list /Users | grep -v '_' | grep -vi "root\|nobody\|daemon\|guest" | sed 's/^/--tag /' | tr '\n' ' ')
     Computer_Name=$(scutil --get ComputerName)
-    Computer_Modele=$(system_profiler SPHardwareDataType | awk '/Model Identifier/ {print $3}' | sed 's/,/./')
-    Computer_OSVersion=$(defaults read loginwindow SystemVersionStampAsString)
-    Computer_Serial=$(system_profiler SPHardwareDataType | awk '/Serial/ {print $4}' | cut -d " " -f1 | head -1)
+    Computer_Modele=" --tag $(system_profiler SPHardwareDataType | awk '/Model Identifier/ {print $3}' | sed 's/,/./')"
+    Computer_OSVersion="--tag $(defaults read loginwindow SystemVersionStampAsString)"
+    Computer_Serial="--tag $(system_profiler SPHardwareDataType | awk '/Serial/ {print $4}' | cut -d " " -f1 | head -1)"
     ;;
   Linux )
     Computer_Owner=$(cat /etc/passwd | grep -vi "nologin" | grep -vi "sbin" | grep -vi "root\|nobody\|daemon\|guest" | cut -d : -f 1 | sed 's/^/--tag /' | tr '\n' ' ')
     Computer_Name=$(hostname)
-    Computer_Modele=$(dmidecode | grep -A3 '^System Information' | grep "Product Name" | cut -d : -f 2 | sed 's/ //' | tr -s ' ' | tr ' ' '_' | tr -s ',' | tr ',' '.')
-    Computer_OSVersion=$(cat /etc/os-release | grep PRETTY_NAME | cut -d = -f 2 | cut -d \" -f 2 | tr -s ' ' | tr ' ' '_')
-    Computer_Serial=$(dmidecode -s system-serial-number)
+    Computer_Modele="--tag $(dmidecode | grep -A3 '^System Information' | grep "Product Name" | cut -d : -f 2 | sed 's/ //' | tr -s ' ' | tr ' ' '_' | tr -s ',' | tr ',' '.')"
+    Computer_OSVersion="--tag $(cat /etc/os-release | grep PRETTY_NAME | cut -d = -f 2 | cut -d \" -f 2 | tr -s ' ' | tr ' ' '_')"
+    Computer_Serial="--tag $(dmidecode -s system-serial-number)"
   ;;
 esac
 
 case $1 in
   backup )
     echo "$(date) --- Start backup ----"
-    restic backup $RESTIC_BACKUP_PATH --host $Computer_Name --tag $Computer_Owner --tag $Computer_Modele --tag $Computer_OSVersion --tag $Computer_Serial $RESTIC_EXCLUDE_PATH
+    restic backup $RESTIC_BACKUP_PATH --host $Computer_Name $Computer_Owner $Computer_Modele $Computer_OSVersion $Computer_Serial $RESTIC_EXCLUDE_PATH
     echo "$(date) --- Backup end ------"
     ;;
 
   fake-backup )
     echo "$(date) --- Start backup ----"
-    echo "restic backup $RESTIC_BACKUP_PATH --host $Computer_Name --tag $Computer_Owner --tag $Computer_Modele --tag $Computer_OSVersion --tag $Computer_Serial $RESTIC_EXCLUDE_PATH"
+    echo "restic backup $RESTIC_BACKUP_PATH --host $Computer_Name $Computer_Owner $Computer_Modele $Computer_OSVersion $Computer_Serial $RESTIC_EXCLUDE_PATH"
     echo "$(date) --- Backup end ------"
     ;;
 
