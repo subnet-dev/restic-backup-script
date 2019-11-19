@@ -116,6 +116,9 @@ fi
 # Set the max cpu usage
 set_max_cpu_usage
 
+# Securing restic_var file
+chmod 600 $SCRIPT_DIR_PATH/restic_var
+
 ### Get computer informations ###
 case $system in
   MacOS )
