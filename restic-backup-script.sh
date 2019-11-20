@@ -175,6 +175,12 @@ case $1 in
     echo "$(date) --- Stop Show All Snapshots ----"
     ;;
 
+  update )
+    echo "$(date) --- Update the script ----"
+    update_script
+    echo "$(date) --- End of update ----"
+    ;;
+
   mount)
     if [[ ! -d $Mount_Path ]]; then
       echo "----- Follder don't exist ------------"
@@ -211,6 +217,7 @@ case $1 in
     echo "--- snapshots-all             Show snapshots of all computers        ---"
     echo "--- mount                     Mount restic backup on ~/Restic        ---"
     echo "--- help                      Print this page                        ---"
+    echo "--- update                    Updte the script from Github.com       ---"
     echo "---                                                                  ---"
     echo "------------------------------------------------------------------------"
     echo "---------------------- ©Matéo Muller - subnet.dev ----------------------"
