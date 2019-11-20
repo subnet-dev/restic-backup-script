@@ -50,6 +50,23 @@ function set_max_cpu_usage() {
   export GOMAXPROCS=$(($(getconf _NPROCESSORS_ONLN)*$MAX_CPU_USAGE/100))
 }
 
+function update_script() {
+  # Check if github.com is accessible and if auto update is enable
+    if [[ ! $(cd $SCRIPT_DIR_PATH && git pull) ]]; then
+      echo "$(date) Error on pull..."
+      echo "If you have some trouble with this script you can reinitialize with these commands in terminal :"
+      echo " /!\\ This manipulation replace the restic_var file /!\\ "
+      echo "      cd $SCRIPT_DIR_PATH"
+      echo "      git fetch --all"
+      echo "      git reset --hard origin/master"
+      echo ""
+      echo "Then retry to run the script : $SCRIPT_DIR_PATH/restic-backup-script.sh"
+      exit
+    else
+      echo "$(date) Script is up to date"
+    fi
+}
+
 #### Code start ####
 
 # Include restic authentification file if exist
@@ -59,28 +76,6 @@ else
   curl https://raw.githubusercontent.com/subnet-dev/restic-backup-script/master/restic_var > $SCRIPT_DIR_PATH/restic_var 2> /dev/null
   echo "You must configure this file : $SCRIPT_DIR_PATH/restic_var"
   exit
-fi
-
-# Check if github.com is accessible and if auto update is enable
-if [[ $SCRIPT_AUTO_UPDATE == "true" ]] && [[ $(check_connection github.com) == "1" ]]; then
-  echo "$(date) Script update"
-
-  if [[ ! $(cd $SCRIPT_DIR_PATH && git pull) ]]; then
-    echo "Error on pull..."
-    echo "If you have some trouble with this script you can reinitialize with these commands in terminal :"
-    echo " /!\\ This manipulation replace the restic_var file /!\\ "
-    echo "      cd $SCRIPT_DIR_PATH"
-    echo "      git fetch --all"
-    echo "      git reset --hard origin/master"
-    echo ""
-    echo "Then retry to run the script : $SCRIPT_DIR_PATH/restic-backup-script.sh"
-    exit
-  fi
-
-
-  echo ""
-else
-  echo "Auto update disable or no access to github.com"
 fi
 
 # Check if the repo path is resolvable.
@@ -96,6 +91,15 @@ if [[ ! $(check_connection $RESTIC_REPOSITORY_HOST) == "1" ]]; then
 fi
 
 check_program_in_path restic
+
+# Update script
+if [[ ! $SCRIPT_AUTO_UPDATE == "true" ]]; then
+  echo "Auto update disable"
+elif [[ ! $(check_connection github.com) == "1" ]]; then
+  echo "Error : Github.com not accessible"
+else
+  update_script
+fi
 
 # Detect witch system it is
 uname_output="$(uname -s)"
