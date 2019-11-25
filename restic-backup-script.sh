@@ -231,6 +231,14 @@ case $1 in
     echo "$(date) --- End of Snapshots forget ----"
     ;;
 
+  unlock)
+    #Unlock wenn restic is locked
+    echo "$(date) --- Unlock restic ----"
+    restic unlock
+    echo "$(date) --- Unlock successfull ----"
+
+      ;;
+
   help | * )
 
     echo ""
@@ -250,6 +258,7 @@ case $1 in
     echo "--- forget [Hostname]         Forget snapshots of this computer      ---"
     echo "--- forget-all                Forget snapshots of all computer       ---"
     echo "--- fake-forget [Hostname]    Forget snapshots of this computer      ---"
+    echo "--- unlock                    Unlock restic repository               ---"
     echo "--- help                      Print this page                        ---"
     echo "---                                                                  ---"
     echo "------------------------------------------------------------------------"
