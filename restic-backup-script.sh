@@ -217,6 +217,7 @@ case $1 in
     echo "--- snapshots-all             Show snapshots of all computers        ---"
     echo "--- mount                     Mount restic backup on ~/Restic        ---"
     echo "--- update                    Updte the script from Github.com       ---"
+    echo "--- forget [Hostname]         Forget snapshots of this computer      ---"
     echo "--- help                      Print this page                        ---"
     echo "---                                                                  ---"
     echo "------------------------------------------------------------------------"
