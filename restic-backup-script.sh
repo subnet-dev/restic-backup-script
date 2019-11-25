@@ -211,6 +211,16 @@ case $1 in
     echo "$(date) --- End of Snapshots forget ----"
     ;;
 
+  forget-all)
+    #Check if a hostname is specified
+    if [[ $2 != "" ]]; then
+      Computer_Name=$2
+    fi
+    echo "$(date) --- Forget snapshots of all ----"
+    restic forget --group-by host  --keep-hourly 168 --keep-daily 90 --keep-monthly 24 --keep-tag FollToKeep
+    echo "$(date) --- End of Snapshots forget ----"
+    ;;
+
   help | * )
 
     echo ""
@@ -228,6 +238,7 @@ case $1 in
     echo "--- mount                     Mount restic backup on ~/Restic        ---"
     echo "--- update                    Updte the script from Github.com       ---"
     echo "--- forget [Hostname]         Forget snapshots of this computer      ---"
+    echo "--- forget-all                Forget snapshots of all computer       ---"
     echo "--- help                      Print this page                        ---"
     echo "---                                                                  ---"
     echo "------------------------------------------------------------------------"
