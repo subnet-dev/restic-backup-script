@@ -11,4 +11,5 @@
 - snapshots [Hostname] -> Show snapshots of this computer
 - snapshots-all -> Show snapshots of all computers
 - mount -> Mount restic backup on ~/Restic
+- unlock -> Unlock restic repository
 - help -> Print this page
