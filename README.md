@@ -12,4 +12,7 @@
 - snapshots-all -> Show snapshots of all computers
 - mount -> Mount restic backup on ~/Restic
 - unlock -> Unlock restic repository
+- forget [Hostname] --> Forget snapshots of this computer
+- forget-all --> Forget snapshots of all computer
+- fake-forget [Hostname]    Forget snapshots of this computer
 - help -> Print this page
