@@ -67,6 +67,56 @@ function update_script() {
     fi
 }
 
+function configure_restic_var() {
+  if [[ $(check_file_or_dir_exist $SCRIPT_DIR_PATH/restic_var) == 1 ]]; then
+    echo "----- Start configuration of restic_var -----"
+    echo $SCRIPT_DIR_PATH
+    exit
+    read -p "Do you want to download a new one ? ( Y / N / exit) : " response_download_new_restic_var
+
+    case $response_download_new_restic_var in
+      y|Y|yes|YES )
+        response_download_new_restic_var="y"
+        ;;
+      n|N|no|NO )
+        response_download_new_restic_var="n"
+        ;;
+      exit | Exit | EXIT )
+        exit
+        ;;
+    esac
+
+    if [[ condition ]]; then
+      #statements
+    fi
+    sed -i 's/vermin/$response_download_new_restic_var/g' $SCRIPT_DIR_PATH/restic_var
+###
+  else
+    echo "No restic_var file found on $SCRIPT_DIR_PATH/restic_var."
+
+    while [[ $response_download_new_restic_var != 'y' ]] && [[ $response_download_new_restic_var != 'n' ]]; do
+      read -p "Do you want to download a new one ? ( Y / N / exit) : " response_download_new_restic_var
+      case $response_download_new_restic_var in
+        y|Y|yes|YES )
+          response_download_new_restic_var="y"
+          ;;
+        n|N|no|NO )
+          response_download_new_restic_var="n"
+          ;;
+        exit | Exit | EXIT )
+          exit
+          ;;
+      esac
+    done
+    unset response_download_new_restic_var
+    echo "Downloading restic_var"
+    echo "curl https://raw.githubusercontent.com/subnet-dev/restic-backup-script/master/restic_var > $SCRIPT_DIR_PATH/restic_var 2> /dev/null"
+    echo "Securrize restic_var"
+    chmod 600 $SCRIPT_DIR_PATH/restic_var
+    configure_restic_var
+  fi
+}
+
 #### Code start ####
 
 # Include restic authentification file if exist
@@ -74,8 +124,7 @@ if [[ $(check_file_or_dir_exist $SCRIPT_DIR_PATH/restic_var) == 1 ]]; then
   . $SCRIPT_DIR_PATH/restic_var
 else
   curl https://raw.githubusercontent.com/subnet-dev/restic-backup-script/master/restic_var > $SCRIPT_DIR_PATH/restic_var 2> /dev/null
-  echo "You must configure this file : $SCRIPT_DIR_PATH/restic_var"
-  exit
+  configure_restic_var
 fi
 
 # Check if the repo path is resolvable.
@@ -201,6 +250,10 @@ case $1 in
     fi
     ;;
 
+  configure )
+  configure_restic_var
+    ;;
+
   help | * )
 
     echo ""
@@ -217,6 +270,7 @@ case $1 in
     echo "--- snapshots-all             Show snapshots of all computers        ---"
     echo "--- mount                     Mount restic backup on ~/Restic        ---"
     echo "--- update                    Updte the script from Github.com       ---"
+    echo "--- configure                 Configure restic_var                   ---"
     echo "--- help                      Print this page                        ---"
     echo "---                                                                  ---"
     echo "------------------------------------------------------------------------"
