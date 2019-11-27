@@ -124,9 +124,6 @@ if [[ $system != "Linux" ]] && [[ $system != "MacOS" ]]; then
   exit
 fi
 
-# Set the max cpu usage
-set_max_cpu_usage
-
 # Securing restic_var file
 chmod 600 $SCRIPT_DIR_PATH/restic_var
 
@@ -155,6 +152,8 @@ case $1 in
   backup )
     update_script_if_auto_update_enable
     echo "$(date) --- Start backup ----"
+    # Set the max cpu usage
+    set_max_cpu_usage
     restic_alleready_running=$(ps aux | grep backup | grep "restic backup"  | wc -l | tr -d '\040\011\012\015')
     if [[ $restic_alleready_running == "1" ]]; then
       restic backup $RESTIC_BACKUP_PATH --host $Computer_Name $Computer_Owner $Computer_Modele $Computer_OSVersion $Computer_Serial $RESTIC_EXCLUDE_PATH
