@@ -147,9 +147,9 @@ esac
 case $1 in
   backup )
     echo "$(date) --- Start backup ----"
-    restic_alleready_running=$(ps aux | grep backup | grep "restic backup"  | wc -l)
-
-    if [[ $restic_alleready_running == "       1" ]]; then
+    restic_alleready_running=$(ps aux | grep backup | grep "restic backup"  | wc -l | tr -d '\040\011\012\015')
+    echo $restic_alleready_running
+    if [[ $restic_alleready_running == "1" ]]; then
       restic backup $RESTIC_BACKUP_PATH --host $Computer_Name $Computer_Owner $Computer_Modele $Computer_OSVersion $Computer_Serial $RESTIC_EXCLUDE_PATH
     else
       echo "! Backup alleready running ! "
