@@ -53,6 +53,7 @@ function set_max_cpu_usage() {
 function update_script() {
   # Check if github.com is accessible and if auto update is enable
     if [[ ! $(cd $SCRIPT_DIR_PATH && git pull) ]]; then
+      echo "$(date) --- Update the script ----"
       echo "$(date) Error on pull..."
       echo "If you have some trouble with this script you can reinitialize with these commands in terminal :"
       echo " /!\\ This manipulation replace the restic_var file /!\\ "
@@ -61,10 +62,24 @@ function update_script() {
       echo "      git reset --hard origin/master"
       echo ""
       echo "Then retry to run the script : $SCRIPT_DIR_PATH/restic-backup-script.sh"
+      echo "$(date) --- Failed to update the script ----"
       exit
     else
+      echo "$(date) --- Update the script ----"
       echo "$(date) Script is up to date"
+      echo "$(date) --- End of update ----"
     fi
+}
+
+function update_script_if_auto_update_enable {
+  # Update script
+  if [[ ! $SCRIPT_AUTO_UPDATE == "true" ]]; then
+    echo "Auto update disable"
+  elif [[ ! $(check_connection github.com) == "1" ]]; then
+    echo "Error : Github.com not accessible"
+  else
+    update_script
+  fi
 }
 
 #### Code start ####
@@ -92,14 +107,6 @@ fi
 
 check_program_in_path restic
 
-# Update script
-if [[ ! $SCRIPT_AUTO_UPDATE == "true" ]]; then
-  echo "Auto update disable"
-elif [[ ! $(check_connection github.com) == "1" ]]; then
-  echo "Error : Github.com not accessible"
-else
-  update_script
-fi
 
 # Detect witch system it is
 uname_output="$(uname -s)"
@@ -146,6 +153,7 @@ esac
 
 case $1 in
   backup )
+    update_script_if_auto_update_enable
     echo "$(date) --- Start backup ----"
     restic_alleready_running=$(ps aux | grep backup | grep "restic backup"  | wc -l | tr -d '\040\011\012\015')
     if [[ $restic_alleready_running == "1" ]]; then
@@ -182,9 +190,7 @@ case $1 in
     ;;
 
   update )
-    echo "$(date) --- Update the script ----"
     update_script
-    echo "$(date) --- End of update ----"
     ;;
 
   mount)
