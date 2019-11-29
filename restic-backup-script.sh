@@ -222,10 +222,6 @@ case $1 in
     ;;
 
   forget-all)
-    #Check if a hostname is specified
-    if [[ $2 != "" ]]; then
-      Computer_Name=$2
-    fi
     echo "$(date) --- Forget snapshots of all ----"
     restic forget --group-by host  --keep-hourly 168 --keep-daily 90 --keep-monthly 24 --keep-tag FollToKeep
     echo "$(date) --- End of Snapshots forget ----"
