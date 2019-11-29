@@ -242,6 +242,12 @@ case $1 in
     echo "$(date) --- End of Snapshots forget ----"
     ;;
 
+  fake-forget-all)
+    echo "$(date) --- Forget snapshots of all ----"
+    restic forget --group-by host  --keep-hourly 168 --keep-daily 90 --keep-monthly 24 --keep-tag FollToKeep --dry-run
+    echo "$(date) --- End of Snapshots forget ----"
+    ;;
+
   unlock)
     #Unlock wenn restic is locked
     echo "$(date) --- Unlock restic ----"
@@ -269,6 +275,7 @@ case $1 in
     echo "--- forget [Hostname]         Forget snapshots of this computer      ---"
     echo "--- forget-all                Forget snapshots of all computer       ---"
     echo "--- fake-forget [Hostname]    Forget snapshots of this computer      ---"
+    echo "--- fake-forget-all           Forget snapshots of all computer       ---"
     echo "--- unlock                    Unlock restic repository               ---"
     echo "--- help                      Print this page                        ---"
     echo "---                                                                  ---"
