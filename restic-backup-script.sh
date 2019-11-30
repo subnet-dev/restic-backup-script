@@ -166,7 +166,7 @@ case $1 in
 
   fake-backup )
     echo "$(date) --- Start backup ----"
-    echo "restic backup $RESTIC_BACKUP_PATH --host $Computer_Name $Computer_Owner $Computer_Modele $Computer_OSVersion $Computer_Serial $RESTIC_EXCLUDE_PATH" --exclude-if-present .restic_do_not_backup_this_dir
+    echo "restic backup $RESTIC_BACKUP_PATH --host $Computer_Name $Computer_Owner $Computer_Modele $Computer_OSVersion $Computer_Serial $RESTIC_EXCLUDE_PATH --exclude-if-present .restic_do_not_backup_this_dir"
     echo "$(date) --- Backup end ------"
     ;;
 
