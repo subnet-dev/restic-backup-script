@@ -156,7 +156,7 @@ case $1 in
     set_max_cpu_usage
     restic_alleready_running=$(ps aux | grep backup | grep "restic backup"  | wc -l | tr -d '\040\011\012\015')
     if [[ $restic_alleready_running == "1" ]]; then
-      restic backup $RESTIC_BACKUP_PATH --host $Computer_Name $Computer_Owner $Computer_Modele $Computer_OSVersion $Computer_Serial $RESTIC_EXCLUDE_PATH --exclude-if-present .restic_do_not_backup_this_dir
+      restic backup $RESTIC_BACKUP_PATH --host $Computer_Name $Computer_Owner $Computer_Modele $Computer_OSVersion $Computer_Serial $RESTIC_EXCLUDE_PATH --exclude-if-present .restic_do_not_backup_this_dir --exclude $Mount_Path
     else
       echo "! Backup alleready running ! "
     fi
@@ -166,7 +166,7 @@ case $1 in
 
   fake-backup )
     echo "$(date) --- Start backup ----"
-    echo "restic backup $RESTIC_BACKUP_PATH --host $Computer_Name $Computer_Owner $Computer_Modele $Computer_OSVersion $Computer_Serial $RESTIC_EXCLUDE_PATH --exclude-if-present .restic_do_not_backup_this_dir"
+    echo "restic backup $RESTIC_BACKUP_PATH --host $Computer_Name $Computer_Owner $Computer_Modele $Computer_OSVersion $Computer_Serial $RESTIC_EXCLUDE_PATH --exclude-if-present .restic_do_not_backup_this_dir --exclude $Mount_Path"
     echo "$(date) --- Backup end ------"
     ;;
 
