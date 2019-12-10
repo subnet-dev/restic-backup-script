@@ -19,6 +19,15 @@ function check_connection() {
   fi
 }
 
+function check_connection_exit_if_error(){
+  if [[ ! $(check_connection $RESTIC_REPOSITORY_HOST) == "1" ]]; then
+    echo "Your restic repository on $RESTIC_REPOSITORY_HOST isn't accessible"
+    echo "Please verify your restic_var configuration ($SCRIPT_DIR_PATH/restic_var)"
+    echo "Exit"
+    exit
+  fi
+}
+
 # Function to check if a file or a directory exist
 function check_file_or_dir_exist() {
   if [[ ! -z $1 ]]; then
@@ -98,13 +107,6 @@ RESTIC_REPOSITORY_TYPE=$(echo $RESTIC_REPOSITORY | cut -d : -f 1)
 RESTIC_REPOSITORY_PROTOCOL=$(echo $RESTIC_REPOSITORY | cut -d : -f 2)
 RESTIC_REPOSITORY_HOST=$(echo $RESTIC_REPOSITORY | cut -d : -f 3 | cut -d \/ -f 3)
 
-if [[ ! $(check_connection $RESTIC_REPOSITORY_HOST) == "1" ]]; then
-  echo "Your restic repository on $RESTIC_REPOSITORY_HOST isn't accessible"
-  echo "Please verify your restic_var configuration ($SCRIPT_DIR_PATH/restic_var)"
-  echo "Exit"
-  exit
-fi
-
 check_program_in_path restic
 
 
@@ -152,6 +154,7 @@ case $1 in
   backup )
     update_script_if_auto_update_enable
     echo "$(date) --- Start backup ----"
+    check_connection_exit_if_error
     # Set the max cpu usage
     set_max_cpu_usage
     restic_alleready_running=$(ps aux | grep backup | grep "restic backup"  | wc -l | tr -d '\040\011\012\015')
@@ -171,12 +174,12 @@ case $1 in
     ;;
 
   snapshots )
-
     #Check if a hostname is specified
     if [[ $2 != "" ]]; then
       Computer_Name=$2
     fi
     echo "$(date) --- Show Snapshots of $Computer_Name ----"
+    check_connection_exit_if_error
     restic snapshots --host $Computer_Name
     echo "$(date) --- Stop Show Snapshots ----"
 
@@ -184,6 +187,7 @@ case $1 in
 
   snapshots-all )
     echo "$(date) --- Show All Snapshots ----"
+    check_connection_exit_if_error
     restic snapshots
     echo "$(date) --- Stop Show All Snapshots ----"
     ;;
@@ -193,6 +197,7 @@ case $1 in
     ;;
 
   mount)
+    check_connection_exit_if_error
     if [[ ! -d $Mount_Path ]]; then
       echo "----- Follder don't exist ------------"
       mkdir -p $Mount_Path
@@ -218,6 +223,7 @@ case $1 in
       Computer_Name=$2
     fi
     echo "$(date) --- Forget snapshots of $Computer_Name ----"
+    check_connection_exit_if_error
     restic forget --group-by host --host $Computer_Name --keep-hourly 168 --keep-daily 90 --keep-monthly 24 --keep-tag FollToKeep
     echo "$(date) --- End of Snapshots forget ----"
     ;;
@@ -228,18 +234,21 @@ case $1 in
       Computer_Name=$2
     fi
     echo "$(date) --- Forget snapshots of $Computer_Name ----"
+    check_connection_exit_if_error
     restic forget --group-by host --host $Computer_Name --keep-hourly 168 --keep-daily 90 --keep-monthly 24 --keep-tag FollToKeep --dry-run
     echo "$(date) --- End of Snapshots forget ----"
     ;;
 
   forget-all)
     echo "$(date) --- Forget snapshots of all ----"
+    check_connection_exit_if_error
     restic forget --group-by host  --keep-hourly 168 --keep-daily 90 --keep-monthly 24 --keep-tag FollToKeep
     echo "$(date) --- End of Snapshots forget ----"
     ;;
 
   fake-forget-all)
     echo "$(date) --- Forget snapshots of all ----"
+    check_connection_exit_if_error
     restic forget --group-by host  --keep-hourly 168 --keep-daily 90 --keep-monthly 24 --keep-tag FollToKeep --dry-run
     echo "$(date) --- End of Snapshots forget ----"
     ;;
@@ -247,6 +256,7 @@ case $1 in
   unlock)
     #Unlock wenn restic is locked
     echo "$(date) --- Unlock restic ----"
+    check_connection_exit_if_error
     restic unlock
     echo "$(date) --- Unlock successfull ----"
 
