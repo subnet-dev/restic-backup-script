@@ -145,7 +145,7 @@ case $system in
     Computer_Name=$(hostname | tr ' ' '_')
     Computer_Modele="--tag $(dmidecode | grep -A3 '^System Information' | grep "Product Name" | cut -d : -f 2 | sed 's/ //' | tr -s ' ' | tr ' ' '_' | tr -s ',' | tr ',' '.')"
     Computer_OSVersion="--tag $(cat /etc/os-release | grep PRETTY_NAME | cut -d = -f 2 | cut -d \" -f 2 | tr -s ' ' | tr ' ' '_')"
-    Computer_Serial="--tag $(dmidecode -s system-serial-number)"
+    Computer_Serial="--tag $(dmidecode -s system-serial-number | tr ' ' '_')"
     Mount_Path=~/Restic
   ;;
 esac
